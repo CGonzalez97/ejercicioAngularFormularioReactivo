@@ -1,11 +1,48 @@
 <form [formGroup]="formularioRegistro">
     <mat-form-field appearance="legacy">
-        <mat-label>Usuario</mat-label>
-        <input matInput placeholder="Placeholder">
+        <mat-label>Nombre</mat-label>
+        <label>Nombre</label>
+        <input type="text" [formControlName]="'nombre'" matInput placeholder="Placeholder">
+        <div *ngIf="formularioRegistro.get('nombre').hasError('required')">El nombre es obligatorio</div>
     </mat-form-field>
 
     <mat-form-field appearance="legacy">
-        <mat-label>Constraseña</mat-label>
-        <input matInput placeholder="Placeholder">
+        <mat-label>Apellidos</mat-label>
+        <label>Apellidos</label>
+        <input type="text" [formControlName]="'apellidos'" matInput placeholder="Placeholder">
+        <div *ngIf="formularioRegistro.get('apellidos').hasError('required')">El apellidos es obligatorio</div>
     </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Contraseña</mat-label>
+        <label>Contrseña</label>
+        <input type="password" [formControlName]="'contrasenya'" matInput placeholder="Placeholder">
+        <div *ngIf="formularioRegistro.get('contrasenya').hasError('required')">La contraseña es obligatoria</div>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Repite la contraseña</mat-label>
+        <label>Contraseña</label>
+        <input type="password" [formControlName]="'repetirContrasenya'" matInput placeholder="Placeholder" (blur)="comprobarContrasenyas()">
+        <div *ngIf="formularioRegistro.get('repetirContrasenya').hasError('required')">Repetir la contraseña es obligatorio</div>
+        <div *ngIf="contrasenyasNoCoinciden">Las contraseñas no coinciden</div>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Teléfono</mat-label>
+        <label>Teléfono</label>
+        <input type="telefono" [formControlName]="'telefono'" matInput placeholder="Placeholder">
+        <div *ngIf="formularioRegistro.get('telefono').hasError('required')">El teléfono es obligatorio</div>
+        <div *ngIf="formularioRegistro.get('telefono').hasError('minlength') && formularioRegistro.get('telefono').dirty">El teléfono debe tener al menos 9 digitos</div>
+    </mat-form-field>
+
+    <mat-form-field appearance="legacy">
+        <mat-label>Email</mat-label>
+        <label>Email</label>
+        <input type="email" [formControlName]="'email'" matInput placeholder="Placeholder">
+        <div *ngIf="formularioRegistro.get('email').hasError('required')">El email es obligatorio</div>
+        <div *ngIf="formularioRegistro.get('email').hasError('email') && formularioRegistro.get('email').dirty">El campo debe de tener formato de email</div>
+    </mat-form-field>
+
+    <input type="submit" (click)="enviar()">
 </form>
